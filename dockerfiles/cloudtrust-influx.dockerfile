@@ -1,17 +1,16 @@
 FROM cloudtrust-baseimage:f27
 
 ARG influx_service_git_tag
+ARG influx_tools_git_tag
 
 WORKDIR /cloudtrust
 
 # Add InfluxDB repository
 RUN echo -e "[influxdb]\nname = InfluxDB Repository - RHEL \$releasever\nbaseurl = https://repos.influxdata.com/rhel/7/\$basearch/stable\nenabled = 1\ngpgcheck = 1\ngpgkey = https://repos.influxdata.com/influxdb.key" >> /etc/yum.repos.d/influxdb.repo && \
 # Install which, InfluxDB, monit
-    dnf -y install which influxdb monit nginx && 
+    dnf -y install which influxdb monit nginx && \
     dnf clean all && \
     git clone git@github.com:cloudtrust/influx-service.git && \
-    groupadd influxdb && \
-    useradd -m -s /sbin/nologin -g influxdb influxdb && \
     cd /cloudtrust/influx-service && \
     git checkout ${influx_service_git_tag} 
 
@@ -41,9 +40,11 @@ RUN cd /cloudtrust/influx-service && \
 
 #Add influx tools
 WORKDIR /cloudtrust
-RUN dnf install python3 pip && \
-    git clone ssh://git@git.elcanet.local:7999/cloudtrust/influx-tools.git && \
+RUN dnf install python3 python3-pip && \
+    dnf clean all && \
+    git clone git@github.com:cloudtrust/influx-tools.git && \
     cd influx-tools && \
+    git checkout ${influx_tools_git_tag} && \
     pyvenv . && \
     . bin/activate && \
     pip install -r ./requirements.txt && \

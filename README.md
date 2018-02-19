@@ -4,7 +4,7 @@
 ```Bash
 cd /cloudtrust
 #Get the repo
-git clone ssh://git@git.elcanet.local:7999/cloudtrust/influx-service.git
+git clone git@github.com:cloudtrust/influx-service.git
 
 cd influx-service
 

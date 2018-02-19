@@ -3,13 +3,13 @@ FROM cloudtrust-influx:${influx_service_git_tag}
 
 ARG environment
 ARG branch
-ARG customer_repository
+ARG config_repository
 
 WORKDIR /cloudtrust
 
-# Get customer config
-RUN git clone ${customer_repository} ./config && \
-	cd /cloudtrust/${customer_repository} && \
+# Get config config
+RUN git clone ${config_repository} ./config && \
+	cd ./config && \
     git checkout ${branch}
 
 # Setup Customer http-router related config
