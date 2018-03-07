@@ -45,7 +45,7 @@ RUN git checkout ${influx_tools_git_tag} && \
 
 WORKDIR /cloudtrust/config
 RUN git checkout ${config_git_tag} && \
-    install -v -m0775 -o root -g root deploy/${config_env}/etc/sysconfig/cloudtrust_influxdb_init /etc/sysconfig/cloudtrust_influxdb_init
+    install -v -m0775 -o root -g root deploy/${config_env}/etc/sysconfig/influxdb.json /etc/sysconfig/influxdb.json
 
 # enable services
 RUN systemctl enable influxdb_init && \
