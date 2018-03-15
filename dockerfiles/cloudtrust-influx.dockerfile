@@ -37,7 +37,7 @@ WORKDIR /cloudtrust/influx-tools
 RUN git checkout ${influx_tools_git_tag} && \
     pyvenv . && \
     . bin/activate && \
-    pip install -r ./requirements.txt && \
+    pip install -r ./requirements.txt
 
     
 WORKDIR /cloudtrust/config
