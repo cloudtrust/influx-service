@@ -2,7 +2,6 @@ FROM cloudtrust-baseimage:f27
 
 ARG influx_service_git_tag
 ARG influx_tools_git_tag
-ARG config_env
 ARG config_git_tag
 ARG config_repo
 
@@ -41,11 +40,12 @@ RUN git checkout ${influx_tools_git_tag} && \
     pyvenv . && \
     . bin/activate && \
     pip install -r ./requirements.txt && \
-    install -v -o root -g root -m 644 deploy/etc/systemd/system/influxdb_init.service /etc/systemd/system/influxdb_init.service
-
+    
 WORKDIR /cloudtrust/config
-RUN git checkout ${config_git_tag} && \
-    install -v -m0775 -o root -g root deploy/${config_env}/etc/sysconfig/influxdb.json /etc/sysconfig/influxdb.json
+RUN git checkout ${config_git_tag} && \  
+    install -v -o root -g root -m 644 deploy/etc/systemd/system/influxdb_init.service /etc/systemd/system/influxdb_init.service && \
+    install -d -v -m0755 /cloudtrust/influx-config/ && \	  
+    install -v -m0750 -o root -g root deploy/cloudtrust/influx-config/* /cloudtrust/influx-config/ 
 
 # enable services
 RUN systemctl enable influxdb_init && \
