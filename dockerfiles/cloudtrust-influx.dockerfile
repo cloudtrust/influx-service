@@ -43,8 +43,8 @@ RUN git checkout ${influx_tools_git_tag} && \
 WORKDIR /cloudtrust/config
 RUN git checkout ${config_git_tag} && \  
     install -v -o root -g root -m 644 deploy/etc/systemd/system/influxdb_init.service /etc/systemd/system/influxdb_init.service && \
-    install -d -v -m0755 /cloudtrust/influx-config/ && \	  
-    install -v -m0750 -o root -g root deploy/cloudtrust/influx-config/* /cloudtrust/influx-config/ 
+    install -d -v -m0755 /cloudtrust/influxdb-config/ && \	  
+    install -v -m0750 -o root -g root deploy/cloudtrust/influxdb-config/* /cloudtrust/influxdb-config/ 
 
 
 
