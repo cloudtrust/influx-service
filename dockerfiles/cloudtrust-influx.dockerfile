@@ -4,7 +4,9 @@ ARG influx_tools_git_tag
 ARG config_git_tag
 ARG config_repo
 
-RUN echo -e "[influxdb]\nname = InfluxDB Repository - RHEL \$releasever\nbaseurl = https://repos.influxdata.com/rhel/7/\$basearch/stable\nenabled = 1\ngpgcheck = 1\ngpgkey = https://repos.influxdata.com/influxdb.key" >> /etc/yum.repos.d/influxdb.repo && \
+RUN echo -e "[influxdb]\nname = InfluxDB Repository - RHEL \$releasever\nbaseurl = https://repos.influxdata.com/rhel/7/\$basearch/stable\nenabled = 1\ngpgcheck = 1\ngpgkey = https://repos.influxdata.com/influxdb.key" >> /etc/yum.repos.d/influxdb.repo
+
+RUN dnf update -y && \
     dnf -y install which influxdb monit nginx python3 python3-pip && \
     dnf clean all
 
