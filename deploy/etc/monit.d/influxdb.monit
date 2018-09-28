@@ -1,0 +1,4 @@
+check process influxdb matching "influxd"
+  start program = "/usr/bin/systemctl start influxdb.service"
+  stop program = "/usr/bin/systemctl stop influxdb.service"
+  if failed port 8086 protocol HTTP request /ping with timeout 10 seconds then restart
