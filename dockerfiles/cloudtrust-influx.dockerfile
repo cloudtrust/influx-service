@@ -4,10 +4,15 @@ ARG influx_tools_git_tag
 ARG config_git_tag
 ARG config_repo
 
+ARG influxdb_version=1.6.2-1
+ARG nginx_version=1.12.1-1.fc27
+ARG python3_version=3.6.6-1.fc27
+ARG python3-pip_version=9.0.3-2.fc27
+
 RUN echo -e "[influxdb]\nname = InfluxDB Repository - RHEL \$releasever\nbaseurl = https://repos.influxdata.com/rhel/7/\$basearch/stable\nenabled = 1\ngpgcheck = 1\ngpgkey = https://repos.influxdata.com/influxdb.key" >> /etc/yum.repos.d/influxdb.repo
 
 RUN dnf update -y && \
-    dnf -y install which influxdb monit nginx python3 python3-pip && \
+    dnf -y install which influxdb-$influxdb_version nginxi-$nginx_version python3-$python3_version python3-pip-$python3-pip_version && \
     dnf clean all
 
 WORKDIR /cloudtrust
